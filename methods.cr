@@ -8,7 +8,7 @@ def transmogrify(input, replace_this, with_this)
     cleaned = removeGlyph(moi)
     puts "cleaned=" + cleaned
     if cleaned.includes?(replace_this)
-      "[" + cleaned.sub(replace_this, with_this) + "]TJ"
+      "[(" + cleaned.sub(replace_this, with_this) + ")]TJ"
     else
       moi # original
     end
