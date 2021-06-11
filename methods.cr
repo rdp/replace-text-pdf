@@ -1,16 +1,17 @@
 def transmogrify(input, replace_this, with_this)
 
-  # [(O)-16(ther i)-20(nformati)-11(on )]TJ => [Other information replaced]
-  # assume for now TJ boxes don't span lines...I think they don't...
+  # [(O)-16(ther i)-20(nformati)-11(on )]TJ => [(Other information replaced)]
+  # assume for now TJ boxes don't span lines...I think so..they don't....
+
   output = input.gsub(/(\[.*?\]|\(.*?\))\s*TJ/i) { | moi |
     if moi.includes?(replace_this)
-      moi.sub(replace_this, with_this)
+      moi.gsub(replace_this, with_this) # do low damage...
     else
-      cleaned = removeGlyph(moi)
+      cleaned = removeGlyph(moi) 
       if cleaned.includes?(replace_this)
-        "[(" + cleaned.sub(replace_this, with_this) + ")]TJ"
+        "[(" + cleaned.gsub(replace_this, with_this) + ")]TJ"
       else
-        moi # didn't find it, return original
+        moi # didn't find it, stick with original
       end
     end
   }

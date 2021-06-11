@@ -10,3 +10,4 @@ desired = ARGV[1]
 replace_with = ARGV[2]
 output = transmogrify(input, desired, replace_with)
 File.write(ARGV[3], output)
+puts "wrote to #{ARGV[3]}"

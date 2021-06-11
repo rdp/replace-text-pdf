@@ -4,7 +4,7 @@ replace text within pdf files
 
 To use: 
 
-convert your pdf to "uncompressed" format
+convert your pdf to "uncompressed" format.  pdftk is one way https://stackoverflow.com/a/920471/32453
 
 your pdf might well have some text in it that looks wonky, like this:
 
@@ -21,7 +21,7 @@ For instance
 $ crystal replaceinpdf.cr input.pdf "Other inf" "zzz" in the above example
 would change the above example to [zzzormation]TJ in your pdf, which seems to work despite not having any text offsets anymore.
 
-Limitations: only replaces text within the same locale.
+Limitations: only replaces text within the same line.
 
 Feedback as github issues.
 
