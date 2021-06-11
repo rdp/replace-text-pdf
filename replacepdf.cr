@@ -1,4 +1,4 @@
-def transmogifry(input, replace_this, with_this)
+def transmogrify(input, replace_this, with_this)
 
 
 # [(O)-16(ther i)-20(nformati)-11(on )]TJ
