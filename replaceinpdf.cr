@@ -3,7 +3,7 @@ if ARGV.size != 4 || ARGV.includes?("-h")
   exit 1
 end
 
-require "./replacepdf.cr"
+require "./methods.cr"
 
 input = File.read(ARGV[0])
 desired = ARGV[1]
