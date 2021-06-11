@@ -7,17 +7,29 @@ describe "works" do
     removeGlyph("[(O)-16(ther i)2(b)]TJ").should eq "Other ib"
   end
 
-  it "should replace" do
+  it "should remove spacing2" do
+    removeGlyph("[(O)-16(ther i)-20(nformati)-11(on )]TJ").should eq "Other information "
+  end
+
+  it "should remove old glyph with non array syntax" do
+    removeGlyph(" (Hello PSPDFKit) Tj").should eq "Hello PSPDFKit"
+  end
+
+  it "should replace on match" do
     out = transmogrify("[(O)-16(ther i)-20(nformati)-11(on )]TJ", "Other", "zzz")
     out.should eq("[zzz information ]TJ")
   end
 
-  it "should replace with caps" do
+  it "should replace with weird tj syntax" do
+    out = transmogrify(" (Hello PSPDFKit) Tj\n", "PSPD", "yoyo").should eq (" [Hello yoyoFKit]TJ\n")
+  end
+
+  it "should replace to caps" do
     out = transmogrify("[(O)-16(ther i)-20(nformati)-11(on )]TJ", "information", "Zzz")
     out.should eq("[Other Zzz ]TJ")
   end
 
-  it "should retain other lines" do
+  it "should retain next lines" do
     out = transmogrify("stuff\n[(O)-16(ther i)-20(nformati)-11(on )]TJ\nstuff2", "Other", "zzz")
     out.should eq("stuff\n[zzz information ]TJ\nstuff2")
   end
