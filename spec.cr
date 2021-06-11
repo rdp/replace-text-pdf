@@ -21,7 +21,7 @@ describe "works" do
   end
 
   it "should replace with weird tj syntax" do
-    out = transmogrify(" (Hello PSPDFKit) Tj\n", "PSPD", "yoyo").should eq (" [(Hello yoyoFKit)]TJ\n")
+    out = transmogrify(" (Hello PSPDFKit) Tj\n", "PSPD", "yoyo").should eq (" (Hello yoyoFKit) Tj\n")
   end
 
   it "should replace to caps" do
@@ -38,6 +38,13 @@ describe "works" do
     out = transmogrify("stuff\n[(O)-16(ther i)-20(nformati)-11(on )]TJ\n[(ZZ)-16(ther i)]TJ\nstuff2\n[(O)-16(ther i)-20(nformati)-11(on )]TJ\nstuff3", "Other", "zzz")
     out.should eq("stuff\n[(zzz information )]TJ\n[(ZZ)-16(ther i)]TJ\nstuff2\n[(zzz information )]TJ\nstuff3")
   end
+
+  it "should do minimal damage" do
+    out = transmogrify("[(Software)-6600(GOODNESS PLUS LLC)-14400(82bbb)]TJ", "GOODNESS", "blah")
+    out.should eq("[(Software)-6600(blah PLUS LLC)-14400(82bbb)]TJ")
+  end
+
+# todo case insensitive?
 
 end
 
