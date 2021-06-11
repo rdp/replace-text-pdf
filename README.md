@@ -1,22 +1,30 @@
 # replace-text-pdf
+
 replace text within pdf files
 
 To use: 
 
-convert pdf to "uncompressed"
+convert your pdf to "uncompressed" format
 
-now your pdf might well have some text in it that looks wonky, like
+your pdf might well have some text in it that looks wonky, like this:
 
 [(O)-16(ther i)-20(nformati)-11(on )]TJ
-Which denotes the text "Other information" in your pdf.  While controlling the width of each text section.
-Good news, if we convert this to [Other information]TJ it usually works fine.
-So this basically you tell it which text "in" and what to replace it with.
-ex: crystal replaceinpdf.cr input.pdf "Other inf" "zzz" would replace the above line with
+The weird numbers denote text offsets, allowing for kerning and controlling the space between words and such https://stackoverflow.com/a/66282749/32453
 
-[zzzormation]TJ in your pdf, thus allowing you to programmatically replace text in pdf's.
+So this program, you tell it which text to replace.
+To run it, install "crystal" programming language compiler first
+
+$ crystal replaceinpdf.cr input_filename.pdf "something you want replaced" "what you want it replaced with" output.pdf
+
+For instance 
+
+$ crystal replaceinpdf.cr input.pdf "Other inf" "zzz" in the above example
+would change the above example to [zzzormation]TJ in your pdf, which seems to work despite not having any text offsets anymore.
+
+Limitations: only replaces text within the same locale.
 
 Feedback as github issues.
 
-To run it, install "crystal" programming language compiler first
+Related: you can replace text in Pdfs using openoffice draw. 
 
 Cheers!
