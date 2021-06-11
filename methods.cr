@@ -5,11 +5,16 @@ def transmogrify(input, replace_this, with_this)
   # assume for now TJ boxes don't span lines?
   # assume for now we don't support more than single TJ box ...
 
-  input = input.gsub(/\[(.*?)\]TJ/) { | moi |
+  output = input.gsub(/\[(.*?)\]TJ/) { | moi |
     puts moi
-    puts removeGlyph(moi)
+    cleaned = removeGlyph(moi)
+    if cleaned.includes?(replace_this)
+      cleaned.sub(replace_this, with_this)
+    else
+      moi
+    end
   }
-  input
+  output
 end
 
 def removeGlyph(input) # (O)-16(ther i)2(b) => Other ib
