@@ -16,6 +16,8 @@ To run it, install "crystal" programming language compiler first
 
 $ crystal replaceinpdf.cr input_filename.pdf "something you want replaced" "what you want it replaced with" output.pdf
 
+output.pdf can be the input filename if you'd like to overwrite it
+
 For instance 
 
 $ crystal replaceinpdf.cr input.pdf "Other inf" "zzz" in the above example
