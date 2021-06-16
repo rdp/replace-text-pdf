@@ -8,6 +8,6 @@ require "./methods.cr"
 input = File.read(ARGV[0])
 desired = ARGV[1]
 replace_with = ARGV[2]
-output = transmogrify(input, desired, replace_with)
+output, count = transmogrify(input, desired, replace_with)
 File.write(ARGV[3], output)
-puts "wrote to #{ARGV[3]}"
+puts "wrote num_modified=#{count} to #{ARGV[3]}"
