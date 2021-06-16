@@ -11,7 +11,8 @@ def transmogrify(input, replace_this, with_this)
       cleaned = removeGlyph(moi) 
       if cleaned.includes?(replace_this)
         count += 1
-        "[(" + cleaned.gsub(replace_this, with_this) + ")]TJ"
+        replaced = cleaned.gsub(replace_this, with_this)
+        "[(" + replaced.gsub("(", "\\(").gsub(")", "\\)") + ")]TJ" # escape parens
       else
         moi # didn't find it, stick with original
       end
@@ -21,10 +22,13 @@ def transmogrify(input, replace_this, with_this)
 end
 
 def removeGlyph(input) # [(O)-16(ther i)2(b)]TJ => Other ib
-  # assume balanced for now...XXX handle it not having glyph at all, I think that's allowable...
-  # XXX handle escaped parens...
-  without_interior_parens = input.strip.gsub(/\)-?\d*\(/, "") 
-  # remove beginning and ending stuff now...
-  without_interior_parens.sub(/^[\[\(]+/, "").sub(/[\)\]]+\s*TJ$/i, "")
+  with_escaped_parens_removed = input.gsub("\\(", "(").gsub("\\)", ")")
+  without_interior_parens = with_escaped_parens_removed.strip.gsub(/\)-?\d*\(/, "") 
+  without_begin_end_stuff = without_interior_parens.sub(/^\[/, "") # intro [
+  without_begin_end_stuff = without_begin_end_stuff.sub(/^\(/, "") # intro (
+  without_begin_end_stuff = without_begin_end_stuff.sub(/\s*TJ$/i, "") # ending TJ
+  without_begin_end_stuff = without_begin_end_stuff.sub(/\]$/, "") # ending ]
+  without_begin_end_stuff = without_begin_end_stuff.sub(/\)$/, "") # ending ) NB if it isn't array this doesn't allow closing escaped )...
+  without_begin_end_stuff
 end
 

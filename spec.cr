@@ -55,6 +55,15 @@ describe "works" do
     out.should eq("[(Software)-6600(blah PLUS LLC)-14400(blah 22 )]TJ")
   end
 
+  it "should work with strings with parens" do
+    out, count = transmogrify("[(\\()-12(201)12(9\\))]TJ", "2019", "2020")
+    out.should eq("[(\\(2020\\))]TJ")
+  end
+
+  it "should retain parens" do
+    removeGlyph("[(\\()-12(201)12(9\\))]TJ").should eq "(2019)"
+  end
+
 # todo case insensitive?
 
 end
