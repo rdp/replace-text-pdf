@@ -20,7 +20,7 @@ then clone this repo.  Then
 
 $ crystal replaceinpdf.cr input_filename.pdf "something you want replaced" "what you want it replaced with" output.pdf
 
-output.pdf can be the input filename if you'd like to overwrite it
+output.pdf can be the input filename if you'd like to overwrite it.  input and output filenames can be "-" if you want to output to stdout and chain (ex: multiple replacements)
 
 For instance 
 
