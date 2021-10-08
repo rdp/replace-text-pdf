@@ -18,5 +18,7 @@ if ARGV[3] == "-"
 else
   File.write(ARGV[3], output)
 end
-
-STDERR.puts "wrote num_modified=#{count} to #{ARGV[3]} from #{ARGV[0]}"
+STDERR.puts "wrote num_modified=#{count} #{ARGV[0]} -> #{ARGV[3]}"
+if count == 0
+  STDERR.puts "no changes, is pdf compressed perhaps?"
+end
