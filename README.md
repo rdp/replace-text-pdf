@@ -1,11 +1,12 @@
 # replace-text-pdf
 
-replace text within pdf files.  A trickier task than you might suppose...made easy here.
+replace text within pdf files.  A trickier task than you might suppose...made easy-er here,
+and possible to script from the command line.
 
 To use: 
 
 convert your pdf to "uncompressed" format.  pdftk is one way https://stackoverflow.com/a/920471/32453
-  pdftk original.pdf output original.uncompressed.pdf uncompress
+  $ pdftk original.pdf output original.uncompressed.pdf uncompress
 
 Now at this point, your raw pdf file might well have some text in it that looks wonky, like this:
 
@@ -14,7 +15,7 @@ Now at this point, your raw pdf file might well have some text in it that looks 
 The weird numbers denote text offsets, allowing for kerning and controlling the size of the spaces between words and such https://stackoverflow.com/a/66282749/32453, and appear to be common.  But make it hard to use a tool like "sed" to replace text.
 
 So this program is "TJ aware", you tell it which text to replace.  If it finds it it discards the glyph numbers and does the replace.  
-It works a lot of the time.  More often than sed typically.  At least as good at sed always (assuming you don't need a regular expression).
+It works most of the time.  More often than sed typically.  At least as good at sed always (assuming you don't need a regular expression).
 
 To run it, install "crystal" programming language compiler first
 then clone this repo.  Then run make or 
@@ -33,6 +34,20 @@ Or
 $ cp myinput.pdf munged.pdf
 $ ./replaceinpdf munged.pdf "this" "with that" munged.pdf
 $ ./replaceinpdf munged.pdf "this2" "with that2" munged.pdf
+
+Or bash script to wrap it/do the same:
+
+#!/bin/env bash
+go() { # params: replace this, with that
+  replace-text-pdf/replaceinpdf  utah.2021.pdf "$1" "$2" utah.2021.pdf
+}
+
+cp utah.uncompressed.pdf utah.2021.pdf
+go 2020 2021
+go 4.56 7.32
+go "my original stuff" "replace that with this new thing"
+...
+
 
 Limitations: only replaces text within the same line.  Might lose some formatting, your mileage may vary.  Basically today if you were to replace the word "information" with "info" in our example it would convert it to
 [Other info ]TJ
