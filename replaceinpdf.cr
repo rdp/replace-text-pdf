@@ -13,7 +13,9 @@ else
 end
 desired = ARGV[1]
 replace_with = ARGV[2]
+
 output, count = transmogrify(input, desired, replace_with)
+
 if ARGV[3] == "-"
   STDOUT.print output
 else

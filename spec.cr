@@ -34,6 +34,10 @@ describe "works" do
     out.should eq("stuff\n[(zzz information )]TJ\nstuff2")
   end
 
+  it "should retain parens when removing glyph" do
+    removeGlyph("[(\\()-12(201)12(9\\))]TJ").should eq "(2019)"
+  end
+
   it "should replace more than one line" do
     out, count = transmogrify("stuff\n[(O)-16(ther i)-20(nformati)-11(on )]TJ\n[(ZZ)-16(ther i)]TJ\nstuff2\n[(O)-16(ther i)-20(nformati)-11(on )]TJ\nstuff3", "Other", "zzz")
     out.should eq("stuff\n[(zzz information )]TJ\n[(ZZ)-16(ther i)]TJ\nstuff2\n[(zzz information )]TJ\nstuff3")
@@ -45,7 +49,7 @@ describe "works" do
     out.should eq("stuff\n[(zzz information zzz )]TJ\nstuff2")
   end # XXX mix them??
 
-  it "should do minimal damage" do
+  it "should do minimal damage" do # minimal damage see comment elsewhere
     out, count = transmogrify("[(Software)-6600(GOODNESS PLUS LLC)-14400(82bbb)]TJ", "GOODNESS", "blah")
     out.should eq("[(Software)-6600(blah PLUS LLC)-14400(82bbb)]TJ")
   end
@@ -55,13 +59,14 @@ describe "works" do
     out.should eq("[(Software)-6600(blah PLUS LLC)-14400(blah 22 )]TJ")
   end
 
-  it "should work with strings with parens" do
+  it "should escape parents in strings with parens" do
     out, count = transmogrify("[(\\()-12(201)12(9\\))]TJ", "2019", "2020")
     out.should eq("[(\\(2020\\))]TJ")
   end
 
-  it "should retain parens" do
-    removeGlyph("[(\\()-12(201)12(9\\))]TJ").should eq "(2019)"
+
+  it "should be able to choose which lines to work on" do
+
   end
 
 # todo case insensitive?
