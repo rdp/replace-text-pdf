@@ -1,5 +1,6 @@
 if ARGV.size != 4 || ARGV.includes?("-h") 
   puts "syntax: input_filename desired_old_text replace_with_this_text output_filename"
+  puts "  filenames can be - for stdin/stdout"
   exit 1
 end
 
