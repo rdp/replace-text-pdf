@@ -39,13 +39,14 @@ Or bash script to wrap it/do the same:
 
 #!/usr/bin/env bash
 go() { # params: replace this, with that
-  replaceinpdf  utah.2021.pdf "$1" "$2" utah.2021.pdf
+  ./replaceinpdf  utah.2021.pdf "$1" "$2" utah.2021.pdf
 }
 
 cp utah.uncompressed.pdf utah.2021.pdf
+
 go "my original stuff" "replace that with this new thing"
 go 4.56 7.32
-go "more stuff" "with this stuff"
+go "more stuff" "replace with this stuff"
 ...
 
 Can have an optional end parameter of a regular expression 'only make changes on lines matching this regex' like a..b a.*b etc"
@@ -53,7 +54,6 @@ Can have an optional end parameter of a regular expression 'only make changes on
      Only lines matching "a common string.*123" will be affected, like "a common string is on this line right matey 123 and some more stuff"
        Will become "replace with this string is on this line right matey 123 and some more stuff"
      But lines that don't contain 123 won't be touched.
-
 
 Limitations: only replaces text within the same line.  Might lose some formatting, your mileage may vary.  Basically today if you were to replace the word "information" with "info" in our example it would convert it to
 [Other info ]TJ
@@ -68,7 +68,5 @@ Related: you can also replace text manually in Pdfs using openoffice draw or ink
 
 You can change the "title" that shows up in the browser when you view a pdf using a different tool:
   sed -i 's/old title/new title/' filename.pdf
-
-There are a few more options, run ./replaceinpdf -h to see them.
 
 Cheers!
