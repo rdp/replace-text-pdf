@@ -57,16 +57,29 @@ describe "works" do
   it "should do minimal damage multiples" do
     out, count = transmogrify("[(Software)-6600(GOODNESS PLUS LLC)-14400(GOODNESS 22 )]TJ", "GOODNESS", "blah")
     out.should eq("[(Software)-6600(blah PLUS LLC)-14400(blah 22 )]TJ")
+    #count.should eq(2) # broken TODO
   end
 
   it "should escape parents in strings with parens" do
     out, count = transmogrify("[(\\()-12(201)12(9\\))]TJ", "2019", "2020")
     out.should eq("[(\\(2020\\))]TJ")
+    count.should eq(1)
   end
 
+  it "should be able to choose line to work on" do
+    out, count = transmogrify("[(O)-16(ther i)2(b)]TJ", "Other", "HHH", "O..er")
+    out.should eq("[(HHH ib)]TJ")
+  end
 
-  it "should be able to choose which lines to work on" do
+  it "should be able to not select a line to work on" do
+    out, count = transmogrify("[(O)-16(ther i)2(b)]TJ", "Other", "HHH", "The line does not match this regex")
+    out.should eq("[(O)-16(ther i)2(b)]TJ")
+  end
 
+  it "should be able to select lines to work on from many" do
+    out, count = transmogrify("stuff\n[Other information]TJ\n[ZZther i]TJ\nstuff2\n[(O)-16(ther i)-20(nformati)-11(onn )]TJ\nstuff3", "Other", "zzz", "informationn")
+    out.should eq("stuff\n[Other information]TJ\n[ZZther i]TJ\nstuff2\n[(zzz informationn )]TJ\nstuff3")
+    count.should eq(1)
   end
 
 # todo case insensitive?

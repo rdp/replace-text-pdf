@@ -11,6 +11,7 @@ if ARGV[0] == "-"
 else
   input = File.read(ARGV[0])
 end
+
 desired = ARGV[1]
 replace_with = ARGV[2]
 
@@ -21,7 +22,8 @@ if ARGV[3] == "-"
 else
   File.write(ARGV[3], output)
 end
+
 STDERR.puts "wrote num_modified=#{count} #{ARGV[0]} -> #{ARGV[3]}"
 if count == 0
-  STDERR.puts "no changes, is pdf compressed perhaps?"
+  STDERR.puts "no changes, is pdf compressed perhaps? If so please decompress first."
 end
