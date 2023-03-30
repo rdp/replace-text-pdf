@@ -12,7 +12,6 @@ def transmogrify(input, replace_this, with_this, lines_containing = ".*")
       pdf_text_matcher = Regex.new("\\([^)]*" + Regex.escape(replace_this) + ".*\\)") # ( then no ")", then the thing, then somewhere a ")", think that's enough
       # XXX test the Regex.escape used...
       if original_line.matches?(pdf_text_matcher) 
-puts "yes"
         count += 1
         original_line.gsub(replace_this, with_this) # do low damage...
       else
