@@ -1,15 +1,18 @@
 def transmogrify(input, replace_this, with_this, lines_containing = ".*")
 
-  # [(O)-16(ther i)-20(nformati)-11(on )]TJ => [(Other information but with replacement)]TJ
-  # assume for now TJ boxes don't span lines...I think they don't....
   count = 0
   lines_matching = Regex.new(lines_containing)
 
   # for each substring that matches [...]TJ possibly replace it...
+  # assume for now TJ boxes don't span lines...I think they don't....
   output = input.gsub(/(\[.*?\]|\(.*?\))\s*TJ/i) { | original_line |
+    # [(O)-16(ther i)-20(nformati)-11(on )]TJ => [(Other information but with replacement)]TJ
     cleaned = removeGlyph(original_line) 
     if cleaned =~ lines_matching
-      if original_line.includes?(replace_this)
+      pdf_text_matcher = Regex.new("\\([^)]*" + Regex.escape(replace_this) + ".*\\)") # ( then no ")", then the thing, then somewhere a ")", think that's enough
+      # XXX test the Regex.escape used...
+      if original_line.matches?(pdf_text_matcher) 
+puts "yes"
         count += 1
         original_line.gsub(replace_this, with_this) # do low damage...
       else
