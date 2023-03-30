@@ -30,5 +30,5 @@ end
 
 STDERR.puts "wrote num_modified=#{count} #{ARGV[0]} -> #{ARGV[3]}"
 if count == 0
-  STDERR.puts "no changes, is pdf compressed perhaps? If so please decompress first."
+  STDERR.puts "no changes '#{desired}', is pdf compressed perhaps? If so please decompress first."
 end
