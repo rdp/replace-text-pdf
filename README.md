@@ -54,6 +54,8 @@ Can have an optional end parameter of a regular expression 'only make changes on
      Only lines matching "a common string.*123" will be affected, like "a common string is on this line right matey 123 and some more stuff"
        Will become "replace with this string is on this line right matey 123 and some more stuff"
      But lines that don't contain 123 won't be touched.
+    Note sometimes this doesn't work if a long line like "Hello.      43" Is split into "two lines" internally 
+      (one for "Hello", one for "43"), feature request welcome.
 
 Limitations: only replaces text within the same line.  Might lose some formatting, your mileage may vary.  Basically today if you were to replace the word "information" with "info" in our example it would convert it to
 [Other info ]TJ
