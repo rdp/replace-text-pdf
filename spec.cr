@@ -62,7 +62,7 @@ describe "works" do
   it "should do minimal damage multiples" do
     out, count = transmogrify("[(Software)-6600(GOODNESS PLUS LLC)-14400(GOODNESS 22 )]TJ", "GOODNESS", "blah")
     out.should eq("[(Software)-6600(blah PLUS LLC)-14400(blah 22 )]TJ")
-    #count.should eq(2) # broken TODO
+    #count.should eq(2) # broken XXX
   end
 
   it "should escape parens in strings with parens" do
@@ -80,6 +80,7 @@ describe "works" do
     out, count = transmogrify("[(Software)-6600(GOODNESS PLUS LLC 6600)-206600(82-3157378)]TJ", "6600", "777")
     out.should eq("[(Software)-6600(GOODNESS PLUS LLC 777)-206600(82-3157378)]TJ")
   end
+  # it should work with internal parens too??
 
   it "should be able to choose lines to apply to positive" do
     out, count = transmogrify("[(O)-16(ther i)2(b)]TJ", "Other", "HHH", "O..er")
