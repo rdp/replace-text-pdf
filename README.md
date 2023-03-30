@@ -37,16 +37,22 @@ $ ./replaceinpdf munged.pdf "this2" "with that2" munged.pdf
 
 Or bash script to wrap it/do the same:
 
-#!/bin/env bash
+#!/usr/bin/env bash
 go() { # params: replace this, with that
-  replace-text-pdf/replaceinpdf  utah.2021.pdf "$1" "$2" utah.2021.pdf
+  replaceinpdf  utah.2021.pdf "$1" "$2" utah.2021.pdf
 }
 
 cp utah.uncompressed.pdf utah.2021.pdf
-go 2020 2021
-go 4.56 7.32
 go "my original stuff" "replace that with this new thing"
+go 4.56 7.32
+go "more stuff" "with this stuff"
 ...
+
+Can have an optional end parameter of a regular expression 'only make changes on lines matching this regex' like a..b a.*b etc"
+  ex: replaceinpdf myfilename.pdf "a common string" "replace with this string" "a common string.*123"
+     Only lines matching "a common string.*123" will be affected, like "a common string is on this line right matey 123 and some more stuff"
+       Will become "replace with this string is on this line right matey 123 and some more stuff"
+     But lines that don't contain 123 won't be touched.
 
 
 Limitations: only replaces text within the same line.  Might lose some formatting, your mileage may vary.  Basically today if you were to replace the word "information" with "info" in our example it would convert it to
