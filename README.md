@@ -51,16 +51,18 @@ go "my original stuff" "replace that with this new thing"
 
 Limitations: only replaces text within the same line.  Might lose some formatting, your mileage may vary.  Basically today if you were to replace the word "information" with "info" in our example it would convert it to
 [Other info ]TJ
-Which may or may not be what you want, but lines up OK most times.  More features available if desired.  One trick that might work in the meantime is to add spaces like "replace x with "  x"
+Which may or may not be what you want, but lines up OK most times.  More features available if desired.  One trick that might work in the meantime is to add spaces like replace "x" with "  x"
 
-Feedback/bugs welcome via  github issues.
+Feedback/bugs/requests welcome via github issues.
 
 More features possible: keeping the exact formatting if the text is the "same exact size" 
   and variations on the same.
 
 Related: you can also replace text manually in Pdfs using openoffice draw or inkscape.
 
-You can change the "title" that shows up in the browser when you view a pdf using this other tool
+You can change the "title" that shows up in the browser when you view a pdf using a different tool:
   sed -i 's/old title/new title/' filename.pdf
+
+There are a few more options, run ./replaceinpdf -h to see them.
 
 Cheers!
