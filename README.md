@@ -1,28 +1,36 @@
 # replace-text-pdf
 
-replace text within pdf files.  A trickier task than you might suppose...made easy-er here,
-and possible to script from the command line.
+Replaces text occurrences within pdf files.  
+A trickier task than you might suppose...made easy-er here,
+and possible to script via the command line.
 
 To use: 
 
 convert your pdf to "uncompressed" format.  pdftk is one way https://stackoverflow.com/a/920471/32453
+
+  $ sudo apt install pdftk
   $ pdftk original.pdf output original.uncompressed.pdf uncompress
 
-Now at this point, your raw pdf file might well have some text in it that looks wonky, like this:
+Now at this point, your raw pdf file might well have some text in it that looks wonky, like this syntax for the text "Other information ":
 
 [(O)-16(ther i)-20(nformati)-11(on )]TJ
 
-The weird numbers denote text offsets, allowing for kerning and controlling the size of the spaces between words and such https://stackoverflow.com/a/66282749/32453, and appear to be common.  But make it hard to use a tool like "sed" to replace text.
+The weird numbers denote text offsets, allowing for kerning and controlling the size of the spaces between words and such 
+https://stackoverflow.com/a/66282749/32453, and appear to be common.  But make it hard to use a tool like "sed" to modify text.
 
-So this program is "TJ aware", you tell it which text to replace.  If it finds it it discards the glyph numbers and does the replace.  
-It works most of the time.  More often than sed typically.  At least as good at sed always (assuming you don't need a regular expression).
+So this program is "TJ aware"'ish, you tell it which text to replace.  If it finds it, it discards the glyph numbers and does the replace.  
+It works most of the time.  More often than sed typically.  At least as good at sed always (assuming you don't need regular expression replace).
+Give it a shot!
 
 To run it, install "crystal" programming language compiler first
-then clone this repo.  Then run make or 
+then clone this repo.  Then cd into it, run 
+$ make
+
+ or 
 
 $ crystal build replaceinpdf.cr
 
-now run
+now run the program like:
 
 $ ./replaceinpdf.cr input_filename.pdf "something you want replaced" "what you want it replaced with" output_filename.pdf
 
@@ -30,12 +38,13 @@ output_filename.pdf can be the input filename if you'd like to overwrite it.  in
 
 For instance $ ./replaceinpdf input.pdf "this" "with that" - | ./replaceinpdf - "this2" "with that2" final_output.pdf
 
-Or 
+Or another way to do it:
+
 $ cp myinput.pdf munged.pdf
 $ ./replaceinpdf munged.pdf "this" "with that" munged.pdf
 $ ./replaceinpdf munged.pdf "this2" "with that2" munged.pdf
 
-Or bash script to wrap it/do the same:
+Or a bash script to wrap it/do the same might look like this (named "go.sh" or what have you):
 
 #!/usr/bin/env bash
 go() { # params: replace this, with that
@@ -57,18 +66,20 @@ Can have an optional end parameter of a regular expression 'only make changes on
     Note sometimes this doesn't work if a long line like "Hello.      43" Is split into "two lines" internally 
       (one for "Hello", one for "43"), feature request welcome.
 
-Limitations: only replaces text within the same line.  Might lose some formatting, your mileage may vary.  Basically today if you were to replace the word "information" with "info" in our example it would convert it to
-[Other info ]TJ
-Which may or may not be what you want, but lines up OK most times.  More features available if desired.  One trick that might work in the meantime is to add spaces like replace "x" with "  x"
+Limitations: only replaces text within a line.  
+
+Might lose some formatting, your mileage may vary.  Basically today if you were to replace the word "information" with "info" in our example it would convert [(O)-16(ther i)-20(nformati)-11(on )]TJ to just [Other info ]TJ
+Which may or may not be what you want, but lines up OK most times.  
+
+More features available if desired.  One trick that might work (if it gets spacing wrong) in the meantime is to add spaces like replace "x" with "    x" to move it right a bit.
 
 Feedback/bugs/requests welcome via github issues.
-
 More features possible: keeping the exact formatting if the text is the "same exact size" 
   and variations on the same.
 
 Related: you can also replace text manually in Pdfs using openoffice draw or inkscape.
 
-You can change the "title" that shows up in the browser when you view a pdf using a different tool:
+You can change the "title" that shows up in the browser when you view a pdf using a different tool, sed:
   sed -i 's/old title/new title/' filename.pdf
 
 Cheers!
