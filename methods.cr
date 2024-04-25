@@ -28,7 +28,7 @@ def transmogrify(input, replace_this, with_this, should_just_display_numbers = f
             output_line = "[(" + replaced.gsub("(", "\\(").gsub(")", "\\)") + ")]TJ" # escape parens, add back in glyphs
           else
             if targeted_line_number
-              STDERR.puts "unable to replace on line #{targeted_line_number}? #{simplified} #{replace_this}" # a miss
+              STDERR.puts "unable to replace on line #{targeted_line_number}? line=#{simplified} trying_to_replace=#{replace_this}" # a miss
             end
           end
         end

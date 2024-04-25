@@ -24,6 +24,7 @@ Give it a shot!
 
 To run it, install "crystal" programming language compiler first
 then clone this repo.  Then cd into it, run 
+
 $ make
 
  or 
@@ -34,7 +35,8 @@ now run the program like:
 
 $ ./replaceinpdf.cr input_filename.pdf "something you want replaced" "what you want it replaced with" output_filename.pdf
 
-output_filename.pdf can be the input filename if you'd like to overwrite it.  input and output filenames can be "-" if you want to output to stdout and chain (ex: multiple replacements)
+output_filename.pdf can be the input filename if you'd like to overwrite it with the modified file.  
+input and output filenames can be "-" if you want to output to stdout (ex: chain for multiple subsequent replacements)
 
 For instance $ ./replaceinpdf input.pdf "this" "with that" - | ./replaceinpdf - "this2" "with that2" final_output.pdf
 
@@ -57,6 +59,14 @@ go "my original stuff" "replace that with this new thing"
 go 4.56 7.32
 go "more stuff" "replace with this stuff"
 ...
+
+By default it replaces "all occurrences" of "this" with "that".
+If you want to replace only "one occurrence" or a "specific occurrence" of a particular string, run it like
+./replaceinpdf filename.pdf "fake" "fake" fake.pdf just_print_line_numbers
+
+It'll spit out an enumerated list of all text lines in that pdf.  Figure out/grab the number of the specific text you want to replace,
+then run it with that number like this:
+./replaceinpdf filename.pdf "replace this" "with this" output.pdf 23456 # 23456 is the line number for it to replace on, all else is left same.
 
 Limitations: only replaces text within a single line.  
 
