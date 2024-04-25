@@ -20,13 +20,21 @@ describe "works" do
     out.should eq("[(zzz information )]TJ")
   end
 
-  it "should replace with weird tj syntax" do
+  it "should not replace on view line numbers only" do
+    line = "[(O)-16(ther i)-20(nformati)-11(on )]TJ"
+    out, count = transmogrify(line, "Other", "zzz", false)
+    count.should eq(1)
+    out, count = transmogrify(line, "Other", "zzz", true)
+    count.should eq(0)
+  end
+
+  it "should replace with non array syntax" do
     transmogrify(" (Hello PSPDFKit) Tj\n", "PSPD", "yoyo").should eq ([" (Hello yoyoFKit) Tj\n", 1])
   end
 
   it "should replace to caps" do
     out, count = transmogrify("[(O)-16(ther i)-20(nformati)-11(on )]TJ", "information", "Zzz")
-    out.should eq("[(Other Zzz )]TJ")
+    out.should eq("[(Other Zzz )]TJ") # cap Z
   end
 
   it "should retain next lines" do

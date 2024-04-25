@@ -1,5 +1,5 @@
 if ARGV.size < 4 || ARGV.includes?("-h") 
-  puts "syntax: pdf_filename_incoming.pdf \"replace this\" \"with that\" pdf_filename_outgoing.pdf [regex for matching lines to be affected]
+  puts "syntax: pdf_filename_incoming.pdf \"replace this\" \"with that\" pdf_filename_outgoing.pdf [just_print_numbers]
     see the README, filenames can be - for stdin/stdout"
   exit 1
 end
@@ -16,13 +16,12 @@ desired = ARGV[1]
 replace_with = ARGV[2]
 
 if ARGV.size == 5
-  regex_for_matching_lines = ARGV[4]
-  STDERR.puts "only replacing lines matching regex #{regex_for_matching_lines}"
+  just_print_numbers = true
 else
-  regex_for_matching_lines = ".*"
+  just_print_numbers = false
 end
 
-output, count = transmogrify(input, desired, replace_with, regex_for_matching_lines)
+output, count = transmogrify(input, desired, replace_with, just_print_numbers)
 
 if ARGV[3] == "-"
   STDOUT.print output
