@@ -1,7 +1,9 @@
 # default is top one
-# TODO I think we're supposed to list all files here, not just one, everywhere? :)
-replaceinpdf: replaceinpdf.cr
+replaceinpdf: $(wildcard *.cr)
 	crystal build replaceinpdf.cr
 
-spec: spec.cr
+#specify that spec isn't a file :|
+.PHONY: spec
+
+spec:
 	crystal spec.cr
