@@ -6,4 +6,4 @@ replaceinpdf: $(wildcard *.cr)
 .PHONY: spec
 
 spec:
-	crystal spec.cr
+	crystal spec

@@ -1,5 +1,5 @@
 require "spec"
-require "./methods.cr"
+require "../methods.cr"
 
 describe "works" do
 

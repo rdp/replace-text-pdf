@@ -69,7 +69,7 @@ One trick that might work (if this gets spacing wrong) in the meantime is to add
 Feedback/bugs/feature requests welcome via github issues.
 More features possible: keeping the exact formatting only if the text is the "same exact size" 
 
-Contributing: run existing specs like $ crystal spec.cr
+Contributing: run existing specs like $ crystal spec
 Submit a PR or issue :)
 
 Related: you can also replace text manually in Pdfs using openoffice draw or inkscape.
