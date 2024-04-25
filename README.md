@@ -77,6 +77,8 @@ Feedback/bugs/requests welcome via github issues.
 More features possible: keeping the exact formatting if the text is the "same exact size" 
   and variations on the same.
 
+Contributing: run existing specs like $ crystal spec.cr
+
 Related: you can also replace text manually in Pdfs using openoffice draw or inkscape.
 
 You can change the "title" that shows up in the browser when you view a pdf using a different tool, sed:
