@@ -1,5 +1,5 @@
 
-def transmogrify(input, replace_this, with_this, should_just_display_numbers = false) # too annoying for unit tests with no default
+def transmogrify(input, replace_this, with_this, should_just_display_numbers = false, targeted_line_number : Int32? = nil) # too annoying for unit tests with no default
 
   count = 0
   text_line_num = 0
@@ -11,24 +11,30 @@ def transmogrify(input, replace_this, with_this, should_just_display_numbers = f
     text_line_num += 1
     # [(O)-16(ther i)-20(nformati)-11(on )]TJ => [(Other information but with replacement)]TJ
     simplified = removeGlyph(original_line) 
-    if should_just_display_numbers # XXX unit tst possible? LOL
+    output_line = original_line
+    if should_just_display_numbers
       puts "#{text_line_num}: #{simplified}"
     else
-    pdf_text_matcher = Regex.new("\\([^)]*" + Regex.escape(replace_this) + ".*\\)") # ( then no ")", then the thing, then somewhere a ")", think that's enough
-    # XXX unit test the Regex.escape is used...
-    if original_line.matches?(pdf_text_matcher, options: opt) 
-      count += 1
-      original_line.gsub(replace_this, with_this) # do low damage...
-    else
-      if simplified.includes?(replace_this)
-        count += 1
-        replaced = simplified.gsub(replace_this, with_this)
-        "[(" + replaced.gsub("(", "\\(").gsub(")", "\\)") + ")]TJ" # escape parens, add back in glyphs
-      else
-        original_line # didn't find it, stick with original
+      if !targeted_line_number || targeted_line_number == text_line_num
+        pdf_text_matcher = Regex.new("\\([^)]*" + Regex.escape(replace_this) + ".*\\)") # ( then no ")", then the thing, then somewhere a ")", think that's enough
+        # XXX unit test the Regex.escape is used...
+        if original_line.matches?(pdf_text_matcher, options: opt) 
+          count += 1
+          output_line = original_line.gsub(replace_this, with_this) # do low damage...
+        else
+          if simplified.includes?(replace_this)
+            count += 1
+            replaced = simplified.gsub(replace_this, with_this)
+            output_line = "[(" + replaced.gsub("(", "\\(").gsub(")", "\\)") + ")]TJ" # escape parens, add back in glyphs
+          else
+            if targeted_line_number
+              STDERR.puts "unable to replace on line #{targeted_line_number}? #{simplified} #{replace_this}" # a miss
+            end
+          end
+        end
       end
     end
-    end
+    output_line
   }
   [output, count]
 end

@@ -28,6 +28,12 @@ describe "works" do
     count.should eq(0)
   end
 
+  it "should replace only on targeted line number" do
+    line = "[(O)-16(ther i)-20(nformati)-11(on )]TJ\n[(O)-16(ther i)-20(nformati)-11(on )]TJ"
+    out, count = transmogrify(line, "Other", "zzz", false, targeted_line_number: 2)
+    out.should eq("[(O)-16(ther i)-20(nformati)-11(on )]TJ\n[(zzz information )]TJ")
+  end
+
   it "should replace with non array syntax" do
     transmogrify(" (Hello PSPDFKit) Tj\n", "PSPD", "yoyo").should eq ([" (Hello yoyoFKit) Tj\n", 1])
   end
