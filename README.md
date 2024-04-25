@@ -44,7 +44,7 @@ $ cp myinput.pdf munged.pdf
 $ ./replaceinpdf munged.pdf "this" "with that" munged.pdf
 $ ./replaceinpdf munged.pdf "this2" "with that2" munged.pdf
 
-Or a bash script to wrap it/do the same might look like this (named "go.sh" or what have you):
+Or a bash script to wrap it/do the same might look like this (named "rewrite_lots.sh" or what have you):
 
 #!/usr/bin/env bash
 go() { # params: replace this, with that

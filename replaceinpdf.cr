@@ -1,5 +1,6 @@
 if ARGV.size < 4 || ARGV.includes?("-h") 
-  puts "syntax: see the README"
+  puts "syntax: pdf_filename_incoming.pdf \"replace this\" \"with that\" pdf_filename_outgoing.pdf [regex for matching lines to be affected]
+    see the README, filenames can be - for stdin/stdout"
   exit 1
 end
 
