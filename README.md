@@ -58,26 +58,19 @@ go 4.56 7.32
 go "more stuff" "replace with this stuff"
 ...
 
-Can have an optional end parameter of a regular expression 'only make changes on lines matching this regex' like a..b a.*b etc"
-  ex: replaceinpdf myfilename.pdf "a common string" "replace with this string" "a common string.*123"
-     Only lines matching "a common string.*123" will be affected, like "a common string is on this line right matey 123 and some more stuff"
-       Will become "replace with this string is on this line right matey 123 and some more stuff"
-     But lines that don't contain 123 won't be touched.
-    Note sometimes this doesn't work if a long line like "Hello.      43" Is split into "two lines" internally 
-      (one for "Hello", one for "43"), feature request welcome.
-
-Limitations: only replaces text within a line.  
+Limitations: only replaces text within a single line.  
 
 Might lose some formatting, your mileage may vary.  Basically today if you were to replace the word "information" with "info" in our example it would convert [(O)-16(ther i)-20(nformati)-11(on )]TJ to just [Other info ]TJ
-Which may or may not be what you want, but lines up OK most times.  
+Which may or may not be what you want, since it loses the spacing numbers, but lines up OK most times.
+If you happen to replace text that is contained in a single element, it will retain the spacing info for it.
+ex: replace "format" with "ZZ" in above example changes it to [(O)-16(ther i)-20(nZZi)-11(on )]TJ which usually works well.
+One trick that might work (if this gets spacing wrong) in the meantime is to add spaces like replace "x" with "    x" to move it right a bit.
 
-More features available if desired.  One trick that might work (if it gets spacing wrong) in the meantime is to add spaces like replace "x" with "    x" to move it right a bit.
-
-Feedback/bugs/requests welcome via github issues.
-More features possible: keeping the exact formatting if the text is the "same exact size" 
-  and variations on the same.
+Feedback/bugs/feature requests welcome via github issues.
+More features possible: keeping the exact formatting only if the text is the "same exact size" 
 
 Contributing: run existing specs like $ crystal spec.cr
+Submit a PR or issue :)
 
 Related: you can also replace text manually in Pdfs using openoffice draw or inkscape.
 

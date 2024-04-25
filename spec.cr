@@ -38,7 +38,7 @@ describe "works" do
     removeGlyph("[(\\()-12(201)12(9\\))]TJ").should eq "(2019)"
   end
 
-  it "should replace more than one line" do
+  it "should replace text more than once" do # which implies split lines in pdf format apparently
     out, count = transmogrify("stuff\n[(O)-16(ther i)-20(nformati)-11(on )]TJ\n[(ZZ)-16(ther i)]TJ\nstuff2\n[(O)-16(ther i)-20(nformati)-11(on )]TJ\nstuff3", "Other", "zzz")
     out.should eq("stuff\n[(zzz information )]TJ\n[(ZZ)-16(ther i)]TJ\nstuff2\n[(zzz information )]TJ\nstuff3")
     count.should eq(2)
@@ -62,7 +62,7 @@ describe "works" do
   it "should do minimal damage multiples" do
     out, count = transmogrify("[(Software)-6600(GOODNESS PLUS LLC)-14400(GOODNESS 22 )]TJ", "GOODNESS", "blah")
     out.should eq("[(Software)-6600(blah PLUS LLC)-14400(blah 22 )]TJ")
-    #count.should eq(2) # broken XXX
+    count.should eq(2) # broken XXX
   end
 
   it "should escape parens in strings with parens" do
@@ -76,32 +76,14 @@ describe "works" do
     count.should eq(0)
   end
 
-  it "should not modify non text numbers when there is a match" do
+  it "should not modify non text numbers when there is a match" do # currently broke
     out, count = transmogrify("[(Software)-6600(GOODNESS PLUS LLC 6600)-206600(82-3157378)]TJ", "6600", "777")
     out.should eq("[(Software)-6600(GOODNESS PLUS LLC 777)-206600(82-3157378)]TJ")
   end
-  # it should work with internal parens too??
 
-  it "should be able to choose lines to apply to positive" do
-    out, count = transmogrify("[(O)-16(ther i)2(b)]TJ", "Other", "HHH", "O..er")
-    out.should eq("[(HHH ib)]TJ")
-  end
+  # TODO it should work with internal parens too??
 
-  it "should be able to not choose lines to apply to negative" do
-    out, count = transmogrify("[(O)-16(ther i)2(b)]TJ", "Other", "HHH", "The line does not match this regex")
-    out.should eq("[(O)-16(ther i)2(b)]TJ")
-  end
-
-  it "should be able to select lines to apply to from many" do
-    out, count = transmogrify("stuff\n[Other information]TJ\n[ZZther i]TJ\nstuff2\n[(O)-16(ther i)-20(nformati)-11(onn )]TJ\nstuff3", "Other", "zzz", "informationn")
-    out.should eq("stuff\n[Other information]TJ\n[ZZther i]TJ\nstuff2\n[(zzz informationn )]TJ\nstuff3")
-    count.should eq(1)
-  end
-
-  # if you have minimal damage and split, like (Something Some)22(thing) it should work
-  #  It should replace perfectly if the size matches but it's split?
-
-  # todo case insensitive?
+  # could do: if you have minimal damage and split, like (Something Some)22(thing) replacign Something should do minimal (?)
 
 end
 
