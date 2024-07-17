@@ -92,7 +92,7 @@ describe "works" do
 
   it "should not modify non text numbers when there is a match" do # currently broke
     out, count = transmogrify("[(Software)-6600(GOODNESS PLUS LLC 6600)-206600(82-3157378)]TJ", "6600", "777")
-    out.should eq("[(Software)-6600(GOODNESS PLUS LLC 777)-206600(82-3157378)]TJ")
+    out.should eq("[(Software)-6600(GOODNESS PLUS LLC 777)-206600(82-3157378)]TJ") # not fixed yet
   end
 
   # TODO it should work with internal parens too??
